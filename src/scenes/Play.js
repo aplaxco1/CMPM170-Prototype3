@@ -104,7 +104,7 @@ class Play extends Phaser.Scene {
 
         //console.log(game.input.mousePointer.x, game.input.mousePointer.y);
 
-        console.log(this.player.x, this.player.y);
+        //console.log(this.player.x, this.player.y);
 
         this.player.update();
 

@@ -5,20 +5,20 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // player sprites
-        this.load.image('playerUp', "/assets/playerUp.png");
-        this.load.image('playerDown', "/assets/playerDown.png");
-        this.load.image('playerRight', "/assets/playerRight.png");
-        this.load.image('playerLeft', "/assets/playerLeft.png");
-        this.load.image('player-projectile', "/assets/playerProjectile.png");
+        this.load.image('playerUp', "./assets/playerUp.png");
+        this.load.image('playerDown', "./assets/playerDown.png");
+        this.load.image('playerRight', "./assets/playerRight.png");
+        this.load.image('playerLeft', "./assets/playerLeft.png");
+        this.load.image('player-projectile', "./assets/playerProjectile.png");
         // enemy sprites
-        this.load.image('enemyUp', "/assets/enemyUp.png");
-        this.load.image('enemyDown', "/assets/enemyDown.png");
-        this.load.image('enemyRight', "/assets/enemyRight.png");
-        this.load.image('enemyLeft', "/assets/enemyLeft.png");
-        this.load.image('enemy-projectile', "/assets/enemyProjectile.png");
+        this.load.image('enemyUp', "./assets/enemyUp.png");
+        this.load.image('enemyDown', "./assets/enemyDown.png");
+        this.load.image('enemyRight', "./assets/enemyRight.png");
+        this.load.image('enemyLeft', "./assets/enemyLeft.png");
+        this.load.image('enemy-projectile', "./assets/enemyProjectile.png");
         // load map
-        this.load.image('tiles', '/assets/tiles.png');
-        this.load.tilemapTiledJSON('tilemap', '/assets/tilemap.json');
+        this.load.image('tiles', './assets/tiles.png');
+        this.load.tilemapTiledJSON('tilemap', './assets/tilemap.json');
     }
 
     create() {
