@@ -19,6 +19,10 @@ class Menu extends Phaser.Scene {
         // load map
         this.load.image('tiles', './assets/tiles.png');
         this.load.tilemapTiledJSON('tilemap', './assets/tilemap.json');
+        // shrine sprite 
+        this.load.image('shrine', './assets/shrine.png');
+        // treasure sprite 
+        this.load.image('treasure', './assets/treasure.png');
     }
 
     create() {

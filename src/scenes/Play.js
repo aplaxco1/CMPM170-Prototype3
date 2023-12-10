@@ -42,6 +42,8 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.gameWon = false;
+
         // set keyboard keys
         cursors = this.input.keyboard.createCursorKeys();
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -98,6 +100,29 @@ class Play extends Phaser.Scene {
             this.player.projectiles.splice(this.player.projectiles.indexOf(projectile), 1);
             projectile.destroy();
         }); 
+
+        // add treasure sprite
+        this.treasure = this.physics.add.staticSprite(960, 130, 'treasure', 0).setOrigin(0.5, 0.5);
+
+        // add shrine sprite
+        this.shrine = this.physics.add.staticSprite(960, 130, 'shrine', 0).setOrigin(0.5, 0.5);
+        this.physics.add.collider(this.shrine, this.player, (shrine, player) => {
+            if (this.collectedSouls >= 20) {
+                shrine.destroy();
+                this.gameWon = true;
+            }
+        })
+        this.physics.add.collider(this.shrine, this.playerProjecilesGroup, (shrine, projectile) => {
+            this.player.projectiles.splice(this.player.projectiles.indexOf(projectile), 1);
+            projectile.destroy();
+        });
+
+        // add text
+        this.soulsCollectedText = this.add.text(game.config.width * 3 / 2, 50, "Souls Collected: ", {color: "white"}).setOrigin(0.5, 0.5);
+        this.soulsCollectedText.text = "Souls Collected: " + this.collectedSouls + " / 20";
+
+        this.winText = this.add.text(this.game.config.width * 3 /2, 200, "", {align: "center", fontSize: 22, wordWrap: { width: 600 }}).setOrigin(0.5, 0.5);
+
     }
 
     update() {
@@ -106,14 +131,25 @@ class Play extends Phaser.Scene {
 
         //console.log(this.player.x, this.player.y);
 
-        this.player.update();
+        if (!this.gameWon) {
+            this.soulsCollectedText.text = "Souls Collected: " + this.collectedSouls + " / 20";
 
-        for (let enemy of this.enemies) {
-            enemy.update();
+            this.player.update();
+
+            for (let enemy of this.enemies) {
+                enemy.update();
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+                this.player.spawnProjectile();
+            }
         }
-
-        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.player.spawnProjectile();
+        else {
+            this.winText.text = "You found the secret treasure hidden underneath the shrine!\n\n Press [SPACE] to restart!" 
+            if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+                this.scene.stop();
+                this.scene.start("menuScene");
+            }
         }
 
     }
